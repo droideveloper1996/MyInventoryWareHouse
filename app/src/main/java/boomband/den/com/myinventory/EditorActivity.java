@@ -10,6 +10,8 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.Intents;
 import android.provider.MediaStore;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -25,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -53,6 +56,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private Uri mUri;
     String product_quantity;
     private int mQuan;
+    private TextView orderMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +108,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        orderMore=(TextView)findViewById(R.id.orderMore);
+        orderMore.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                composeEmail();
+            }
+        });
 
     }
 
@@ -306,5 +317,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         alertDialog.show();
     }
 
+    public void composeEmail() {
+        Intent intent = new Intent(Intent.ACTION_INSERT);
+        intent.setType(Contacts.CONTENT_TYPE);
 
+        intent.putExtra(Intents.Insert.NAME, "James");
+        intent.putExtra(Intents.Insert.EMAIL, "james@example.com");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 }

@@ -91,9 +91,9 @@
                 <EditText
                     android:id="@+id/quantity"
                     android:layout_width="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_height="wrap_content"
                     />
 
                 <Button
@@ -149,7 +149,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/orderMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="end"
+            android:text="Click Here to Order More...."
+            android:textColor="#f32f98"
+            android:textSize="14sp"
+            android:textStyle="italic"/>
 
         <Button
             android:id="@+id/addImage"

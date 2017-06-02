@@ -10,8 +10,6 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.Intents;
 import android.provider.MediaStore;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -108,7 +106,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        orderMore=(TextView)findViewById(R.id.orderMore);
+        orderMore = (TextView) findViewById(R.id.orderMore);
         orderMore.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,7 +249,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public void incre() {
 
 
-        if(mUri!=null) {
+        if (mUri != null) {
             mQuan = Integer.parseInt(mQuantity.getText().toString());
         }
         //     Toast.makeText(EditorActivity.this, String .valueOf(a), Toast.LENGTH_SHORT).show();
@@ -263,7 +261,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     public void decre() {
-        if(mUri!=null) {
+        if (mUri != null) {
             mQuan = Integer.parseInt(mQuantity.getText().toString());
         }
         //     Toast.makeText(EditorActivity.this, String .valueOf(a), Toast.LENGTH_SHORT).show();
@@ -318,13 +316,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     public void composeEmail() {
-        Intent intent = new Intent(Intent.ACTION_INSERT);
-        intent.setType(Contacts.CONTENT_TYPE);
-
-        intent.putExtra(Intents.Insert.NAME, "James");
-        intent.putExtra(Intents.Insert.EMAIL, "james@example.com");
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_EMAIL,
+                new String[]{"kushwaha.27@gmail.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Order Items");
+        i.putExtra(Intent.EXTRA_TEXT, "Hello , This is Abhishek From FarmDelight Store..");
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(EditorActivity.this,
+                    "There are no email clients installed.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
